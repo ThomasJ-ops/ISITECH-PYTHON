@@ -8,7 +8,7 @@ Adresse_IP = socket.gethostbyname(Nom_PC)   ## Information Adresse IP
 Architecture_processeur = platform.machine()    ## information Architecture processeur
 Systeme = platform.system(), platform.version()   ## Information Windows + build
 Processeur = platform.processor()   ## Information Processeur 
-Nom_Domaine = socket.getfqdn([Nom_PC])  ## Information nom domaine
+
 
 Info_Python = platform.python_build()   ## Information Version Python
 Info_Python_Compiler = platform.python_compiler()   ## Information Compilateur Python
@@ -23,7 +23,6 @@ print("")
 print("Nom du PC: ", Nom_PC, "--", Adresse_IP)
 print("processeur", Processeur, Architecture_processeur)
 print("Système d'exploitation: ", Systeme)
-print("Nom de domaine : ", Nom_Domaine)
 print("")
 print("=====================")
 print("Information Python")
@@ -31,5 +30,6 @@ print("=====================")
 print("")
 print("information python :", Info_Python)
 print("Compilleur python : ", Info_Python_Compiler)
+
 
 
