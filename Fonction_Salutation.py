@@ -13,33 +13,28 @@ saluer_personne
 """
 
 
-
-def Saluer_personne(Nom, heure):
+def saluer_personne(nom, heure):
     """
-    Retourne une réponse en fonction du prénom et de l'heure indiquée
+    Retourne le message de salutation en fonction de l'heure.
     """
+    
     heure = int(heure)
 
-    if  6 <= heure < 12:
-        message = "Bonjour"
+    if 6 <= heure < 12:
+        return "Bonjour"
     elif 12 <= heure < 18:
-        message = "Bon après-midi"
-    elif 18 <= heure < 24:
-        message = "Bonsoir"
-    else: 
-        message = "Bonne nuit"
-    # return(f" {message}, {Nom}, !")
+        return "Bon après-midi"
+    elif 18 <= heure <= 23:
+        return "Bonsoir"
+    else:
+        return "Bonne nuit"
 
-# utilisation
-personne1 = Saluer_personne("Alice", "20")
-personne2 = Saluer_personne("Bob", "10")
-personne3 = Saluer_personne("Charlie", "14")
+nom_a = "Alice"
+nom_b = "Bob"
+nom_c = "Luc"
 
-# Exemple d'utilisation
-print(f"{personne1} ")
-
-
-
-
+print(saluer_personne("Alice", "10")+ " " + nom_a)
+print(saluer_personne("Bob", "22")+ " " + nom_b)
+print(saluer_personne("Luc", "16")+ " " + nom_c)
 
     
