@@ -1,23 +1,29 @@
-def celsius_vers_fahrenheit(celsius): 
-    """Convertit des degrés Celsius en Fahrenheit""" 
-    fahrenheit = (celsius * 9/5) + 32 
-    return fahrenheit 
+import psutil
+import socket
 
 
-def fahrenheit_vers_celsius(fahrenheit): 
-    """Convertit des degrés Fahrenheit en Celsius""" 
-    celsius = (fahrenheit - 32) * 5/9 
-    return celsius 
+import psutil
+import socket
 
-# Utilisation
-#  
-temp_c = 25 
-temp_f = celsius_vers_fahrenheit(temp_c) 
-print(f"{temp_c}°C = {temp_f}°F") 
+def main():
+    # On récupère toutes les interfaces réseau de l’ordinateur
+    interfaces = psutil.net_if_addrs()
+
+    # On parcourt chaque interface (ex : Ethernet, Wi-Fi…)
+    for nom_interface, liste_adresses in interfaces.items():
+
+        # On parcourt chaque adresse trouvée pour cette interface
+        for adresse in liste_adresses:
+
+            # On vérifie si c’est bien une adresse IPv4
+            if adresse.family == socket.AF_INET:
+                print("Interface :", nom_interface)
+                print("  Adresse IP :", adresse.address)
+                print("  Masque     :", adresse.netmask)
+                print()
+
+if __name__ == "__main__":
+    main()
 
 
 
-
-temp_f2 = 77 
-temp_c2 = fahrenheit_vers_celsius(temp_f2) 
-print(f"{temp_f2}°F = {temp_c2:.1f}°C") 
