@@ -36,13 +36,19 @@ def compter_articles(course):
 
 # Utilisation des fonctions
 Liste_Course = ["salade", "tomates"]
+
+
+print("Dans la liste de course il y à : ")
+afficher_liste(Liste_Course) 
+
+
 Nombre_article = compter_articles(Liste_Course)
 ajout_article = ajouter_article(Liste_Course, "fromage")
 Retrait_article = retirer_article(Liste_Course, "tomates")
 
-print("Dans la liste de course il y à : ")
+
 afficher_liste(Liste_Course) 
 print(f" soit un total de {Nombre_article} articles ")
-print(f" si on ajoute {ajout_article} et qu'on {Retrait_article},")
+print(f" si on ajoute {ajout_article} et qu'on retire {Retrait_article},")
 print(f"la nouvelle liste contient {Liste_Course}, pour un total de {Nombre_article} articles.")
 
