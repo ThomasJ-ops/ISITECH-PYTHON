@@ -115,7 +115,6 @@ def afficher_ram():
     ## Pourcentage d'utilisation
     print(f"{gestion_couleur(psutil.virtual_memory().percent)}Mémoire utilisée à : {psutil.virtual_memory().percent} %")
     
-
 ## Fonction pour l'usage du disque
 
 def afficher_disque():
