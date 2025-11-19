@@ -51,11 +51,48 @@ init(autoreset=True)
 
 ## Fonctions
 
+def gestion_couleur(pourcentage):
+     
+	"""
+	Retourne une couleur selon le pourcentage
+	rouge : > 75%
+	orange : 50% - 75%
+	vert : < 50%
+	"""
+	if pourcentage < 40:
+		return Fore.GREEN
+	elif pourcentage < 75:
+		return Fore.YELLOW
+	else:
+		return Fore.RED    
+
+def gestion_couleur_batterie(pourcentage):
+	"""
+	Retourne une couleur selon le pourcentage
+	rouge : > 75%
+	orange : 50% - 75%
+	vert : < 50%
+	"""
+	if pourcentage < 20:
+		return Fore.RED
+	elif pourcentage < 75:
+		return Fore.GREEN
+	else:
+		return Fore.YELLOW    
+
 def collecter_info_systeme():
     """
     Collecte les informations système de base
     Retourne un dictionnaire avec les informations système
     """
+    batterie = psutil.sensors_battery()
+    if not batterie.power_plugged:
+        Temps_charge = batterie.secsleft // 60
+    else:
+        Temps_charge = None  # ou 0, ou "En charge"
+    
+
+
 
     Info_systeme = {}
 
@@ -63,8 +100,13 @@ def collecter_info_systeme():
         "os": platform.system(),
         "version": platform.version(),
         "architecture": platform.machine(),
-        "hostname": socket.gethostname()
-    }
+        "hostname": socket.gethostname(),
+        "batterie_en_charge" : psutil.sensors_battery().power_plugged,
+        "Etat_batterie" : gestion_couleur_batterie(psutil.sensors_battery().percent) + str(psutil.sensors_battery().percent) + "%",
+        "Charge_restante": f"{Temps_charge} minutes restantes" if Temps_charge is not None else "En charge"    
+}
+
+
     return Info_systeme
 
 def collecter_cpu():
@@ -75,10 +117,11 @@ def collecter_cpu():
     """
     Info_cpu = {}
     Info_cpu = {
-        "coeurs_physiques": psutil.cpu_count(logical=False),
-        "coeurs_logiques": psutil.cpu_count(logical=True),
-        "utilisation": psutil.cpu_percent(interval=1),
+        "coeurs_physiques" : psutil.cpu_count(logical=False),
+        "coeurs_logiques" : psutil.cpu_count(logical=True),
+        "Pourcentage utilisé": gestion_couleur(psutil.cpu_percent(interval=1)) + str(psutil.cpu_percent(interval=1)) + "%",
     }
+        
     return Info_cpu
 
 def collecter_memoire():
@@ -89,9 +132,10 @@ def collecter_memoire():
 
     Info_memoire = {}
     Info_memoire = {
-        "total": round(psutil.virtual_memory().total / (1024 ** 3),2),
-        "disponible": round(psutil.virtual_memory().used / (1024 **3),2),
-        "pourcentage": round(psutil.virtual_memory().free / (1024 **3),2),
+        "total": str(round(psutil.virtual_memory().total / (1024 ** 3),2)) + " Go",
+        "Utilisé": str(round(psutil.virtual_memory().used / (1024 **3),2)) + " Go",
+        "Libre": round(psutil.virtual_memory().free / (1024 **3),2),
+        "Pourcentage utilisé": gestion_couleur(psutil.virtual_memory().percent) + str(psutil.virtual_memory().percent) + " %",
     }
     return Info_memoire
 
@@ -109,9 +153,9 @@ def collecter_disques():
             usage = psutil.disk_usage(i.mountpoint)
             Info_disques.append({
                 "point_montage": i.device,
-                "total": round(usage.total / (1024 ** 3),2),
-                "utilise": round(usage.used / (1024 **3),2),
-                "pourcentage": usage.percent,
+                "total": str(round(usage.total / (1024 ** 3),2)) + " Go",
+                "utilise": str(round(usage.used / (1024 **3),2)) + " Go",
+                "pourcentage d'utilisé": gestion_couleur(usage.percent) + str(usage.percent) + "%",
             })
 
         except PermissionError:
@@ -147,5 +191,9 @@ print(collecter_cpu())
 print(collecter_memoire())
 print(collecter_disques())
 """
-print(f" voici le total: {collecter_tout()}")
+#print(f" voici le total: {collecter_tout()}")
 
+
+if __name__ == "__main__":
+    # Code exécuté si le module est lancé directement
+    print(f" voici le total: {collecter_tout()}")
