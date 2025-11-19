@@ -35,12 +35,27 @@ from colorama import Fore, Style, init
 # Initialiser colorama 
 init(autoreset=True) 
 
+
+
 ##Variables
 
 
 # Définir vos fonctions ici
 
+## Vérification si système compatible
+def verifier_systeme():
+    """
+    Vérifie si le système est compatible avec le script
+    """
+    if platform.system() != "Windows":
+        print("Navré ce logiciel ne fonctionne que sur les PC windows")
+        exit()
+    else:
+        print("Système compatible détecté")
+
+
 ## Fonction Systeme
+
 def afficher_systeme():
     """
     Affiche les informations système
@@ -51,14 +66,14 @@ def afficher_systeme():
     print(f"processeur: {platform.processor()}, {platform.machine()}")  ## Information Processeur 
     
     ## information Batterie
-    print(f"Batterie en charge : {psutil.sensors_battery().power_plugged}")  ## Information Batterie en charge ou non
-    if psutil.sensors_battery().percent < 50:
-        print (Fore.GREEN + f"La batterie est actuellement à : {psutil.sensors_battery().percent} %")
-    elif 50 <= psutil.sensors_battery().percent <= 80:
-        print (Fore.YELLOW + f"La batterie est actuellement à : {psutil.sensors_battery().percent} %")
-    else: print (Fore.RED + f"La batterie est actuellement à : {psutil.sensors_battery().percent} %")
-    print(f"Votre batterie peut encore tenir {psutil.sensors_battery().secsleft // 60} minutes")  ## Information Temps restant batterie en minutes
-    
+
+    print(f"Batterie en charge : {psutil.sensors_battery().power_plugged}")  ## Information Batterie en charge ou non    
+    print(f"{gestion_couleur(psutil.sensors_battery().percent)}La batterie est actuellement à : {psutil.sensors_battery().percent} %")
+    if psutil.sensors_battery().power_plugged == True:
+        print("Batterie en charge")
+    else:
+        print(f"Votre batterie peut encore tenir {psutil.sensors_battery().secsleft // 60} minutes")  ## Information Temps restant batterie en minutes
+
 
 ## Fonction Python
 
@@ -78,11 +93,7 @@ def afficher_cpu():
     Affiche toutes les informatoins du CPU
     """
     ## Pourcentage d'utilisation global du CPU
-    if psutil.cpu_percent(interval=1) < 50:
-        print (Fore.GREEN + f" utilisation CPU : {psutil.cpu_percent(interval=1)} %")
-    elif 50 <= psutil.cpu_percent(interval=1) <= 80:
-        print (Fore.YELLOW + f" utilisation CPU : {psutil.cpu_percent(interval=1)} %")
-    else: print (Fore.RED + f" utilisation CPU : {psutil.cpu_percent(interval=1)} %")
+    print(f"{gestion_couleur(psutil.cpu_percent(interval=1))} Utilisation CPU: {psutil.cpu_percent(interval=1)}%")
 
     ## Nombre de coeur physique et logique, fréquence actuelle / max du processeur
     print(f" Nombre de coeur physique: {psutil.cpu_count(logical = False)}") 
@@ -102,11 +113,8 @@ def afficher_ram():
     print (f" Mémoire libre: {psutil.virtual_memory().free / (1024 **3):.2f} Go")
 
     ## Pourcentage d'utilisation
-    if psutil.virtual_memory().percent < 50:
-        print (Fore.GREEN + f" Mémoire utilisée à : {psutil.virtual_memory().percent} %")
-    elif 50 <= psutil.virtual_memory().percent <= 80:
-        print (Fore.YELLOW + f" Mémoire utilisée à : {psutil.virtual_memory().percent} %")
-    else: print (Fore.RED + f" Mémoire utilisée à : {psutil.virtual_memory().percent} %")
+    print(f"{gestion_couleur(psutil.virtual_memory().percent)}Mémoire utilisée à : {psutil.virtual_memory().percent} %")
+    
 
 ## Fonction pour l'usage du disque
 
@@ -114,33 +122,19 @@ def afficher_disque():
     """
     Affiches toutes les informations des disques C: et D:
     """
-    ##Information lecteur C:
-    print("Lecteur C: ")
-    print(f" Espace total du disque C: : {psutil.disk_usage("C:\\").total / (1024 ** 3):.2f} Go")
-    print(f" Espace utilisé du disque C: : {psutil.disk_usage("C:\\").used / (1024 ** 3):.2f} Go")
-    print(f" Espace libre du disque C: : {psutil.disk_usage("C:\\").free / (1024 ** 3):.2f} Go")
+    Partition_pc = psutil.disk_partitions()
+    # cree une liste de vide qui contiendra toutes les partitions (disques)
+    Disque_dur = []
+    for i in Partition_pc:
+    # ajoute le nom de la partition (disque) a la liste Disque_dur
+        Disque_dur.append(i.device)
 
-    ## Pourcentage d'utilisation
-    if psutil.disk_usage("C:\\").percent < 50:
-        print(Fore.GREEN + f" Disque C: utilisé à : {psutil.disk_usage("C:\\").percent} %")
-    elif 50 <= psutil.disk_usage("C:\\").percent <= 80:
-        print(Fore.YELLOW + f" Disque C: utilisé à : {psutil.disk_usage("C:\\").percent} %")
-    else: print(Fore.RED + f" Disque C: utilisé à : {psutil.disk_usage("C:\\").percent} %")
-
-    ##Information lecteur D:
-    print("Lecteur D: ")
-    print(f" Espace total du disque D: : {psutil.disk_usage("D:\\").total / (1024 ** 3):.2f} Go")
-    print(f" Espace utilisé du disque D: : {psutil.disk_usage("D:\\").used / (1024 ** 3):.2f} Go")
-    print(f" Espace libre du disque D: : {psutil.disk_usage("D:\\").free / (1024 ** 3):.2f} Go")
+    for i in Disque_dur:
+        print(f" Espace total du disque {i} : {psutil.disk_usage(i).total / (1024 ** 3):.2f} Go")
+        print(f" Espace utilisé du disque {i} : {psutil.disk_usage(i).used / (1024 ** 3):.2f} Go")
+        print(f" Espace libre du disque {i} : {psutil.disk_usage(i).free / (1024 ** 3):.2f} Go")
+        print(f"{gestion_couleur(psutil.disk_usage(i).percent)} Disque {i} utilisée à : {psutil.disk_usage(i).percent} %")
     
-    ## Pourcentage d'utilisation
-    if psutil.disk_usage("D:\\").percent < 50:
-        print(Fore.GREEN + f" Disque D: utilisé à : {psutil.disk_usage("D:\\").percent} %")
-    elif 50 <= psutil.disk_usage("D:\\").percent <= 80:
-        print(Fore.YELLOW + f" Disque D: utilisé à : {psutil.disk_usage("D:\\").percent} %")
-    else: print(Fore.RED + f" Disque D: utilisé à : {psutil.disk_usage("D:\\").percent} %")
-
-
 ## Fonction applications
 
 def afficher_applications():
@@ -175,31 +169,26 @@ def afficher_reseau():
 
 ## Gestion de la couleur selon le pourentage
 
-    
+def gestion_couleur(pourcentage):
+	"""
+	Retourne une couleur selon le pourcentage
+	rouge : > 75%
+	orange : 50% - 75%
+	vert : < 50%
+	"""
+	if pourcentage < 50:
+		return Fore.GREEN
+	elif pourcentage < 75:
+		return Fore.YELLOW
+	else:
+		return Fore.RED    
 
 # Votre code ici
     
+    ## Vérification si système compatible
+print(f"{verifier_systeme()}")
 
-#pass 
-
-
-"""
-
-def afficher_memoire(): 
-# Votre code ici 
-pass 
-def afficher_disque(): 
-# Votre code ici 
-pass 
-def choisir_couleur(pourcentage): 
-# Retourne une couleur selon le pourcentage 
-pass 
-def main(): 
-# Programme principal 
-pass 
-if __name__ == "__main__": 
-    main() 
-"""
+    ## Affichage des informations
 print("=====================================")
 print("Information Système")
 print("=====================================")
