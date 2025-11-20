@@ -1,5 +1,6 @@
 import csv
 import os
+import json
 
 
 from collector import collecter_tout
@@ -37,11 +38,11 @@ def mise_a_plat():
 # Export CSV
 
 def export_CSV():
-    with open('Export_data_systeme.csv', 'a', newline='') as f:
+    with open('syswatch/Export_data_systeme.csv', 'a', newline='') as f:
         colonnes = ["TimeStamp" , "hostname" , "Pourcentage_CPU_utilise" , "RAM_total" , "RAM_Utilise" , "RAM_Libre" , "Pourcentage_RAM_utilise" , "point_montage" , "disque_total" , "disque_utilise" , "pourcentage_disque_utilise"]
         writer = csv.DictWriter(f, fieldnames=colonnes)
 
-        if os.stat('Export_data_systeme.csv').st_size != 0:
+        if os.stat('syswatch/Export_data_systeme.csv').st_size != 0:
             writer.writerows(extract_donnees)  # Écrire toutes les lignes
         else:
             writer.writeheader()  # Écrire en-têtes 
@@ -54,13 +55,15 @@ def export_json():
     Export des donnees dans un fichier JSON
 
     """
-    
+    with open("syswatch/config.json", "w") as f:
+        json.dump(donnees, f, indent=2)
     
     
 if __name__ == "__main__":
     # Code exécuté si le module est lancé directement
     mise_a_plat()
     export_CSV()
+    export_json()
     
 
 

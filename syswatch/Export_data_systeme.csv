@@ -1,0 +1,9 @@
+TimeStamp,hostname,Pourcentage_CPU_utilise,RAM_total,RAM_Utilise,RAM_Libre,Pourcentage_RAM_utilise,point_montage,disque_total,disque_utilise,pourcentage_disque_utilise
+2025-11-20 09:09:13,Thomas_gigabyte,[32m5.0%,31.71 Go,16.62 Go,15.09,[33m52.4 %,C:\,932.42 Go,464.61 Go,[33m49.8%
+2025-11-20 09:09:13,Thomas_gigabyte,[32m5.0%,31.71 Go,16.62 Go,15.09,[33m52.4 %,D:\,931.5 Go,304.66 Go,[32m32.7%
+2025-11-20 09:09:17,Thomas_gigabyte,[32m21.7%,31.71 Go,16.64 Go,15.08,[33m52.5 %,C:\,932.42 Go,464.61 Go,[33m49.8%
+2025-11-20 09:09:17,Thomas_gigabyte,[32m21.7%,31.71 Go,16.64 Go,15.08,[33m52.5 %,D:\,931.5 Go,304.66 Go,[32m32.7%
+2025-11-20 09:09:20,Thomas_gigabyte,[32m8.3%,31.71 Go,16.62 Go,15.09,[33m52.4 %,C:\,932.42 Go,464.61 Go,[33m49.8%
+2025-11-20 09:09:20,Thomas_gigabyte,[32m8.3%,31.71 Go,16.62 Go,15.09,[33m52.4 %,D:\,931.5 Go,304.66 Go,[32m32.7%
+2025-11-20 09:09:22,Thomas_gigabyte,[32m17.4%,31.71 Go,16.63 Go,15.09,[33m52.4 %,C:\,932.42 Go,464.61 Go,[33m49.8%
+2025-11-20 09:09:22,Thomas_gigabyte,[32m17.4%,31.71 Go,16.63 Go,15.09,[33m52.4 %,D:\,931.5 Go,304.66 Go,[32m32.7%
