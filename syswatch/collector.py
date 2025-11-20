@@ -119,7 +119,7 @@ def collecter_cpu():
     Info_cpu = {
         "coeurs_physiques" : psutil.cpu_count(logical=False),
         "coeurs_logiques" : psutil.cpu_count(logical=True),
-        "Pourcentage utilisé": gestion_couleur(psutil.cpu_percent(interval=1)) + str(psutil.cpu_percent(interval=1)) + "%",
+        "Pourcentage_CPU_utilise": gestion_couleur(psutil.cpu_percent(interval=1)) + str(psutil.cpu_percent(interval=1)) + "%",
     }
         
     return Info_cpu
@@ -132,10 +132,10 @@ def collecter_memoire():
 
     Info_memoire = {}
     Info_memoire = {
-        "total": str(round(psutil.virtual_memory().total / (1024 ** 3),2)) + " Go",
-        "Utilisé": str(round(psutil.virtual_memory().used / (1024 **3),2)) + " Go",
-        "Libre": round(psutil.virtual_memory().free / (1024 **3),2),
-        "Pourcentage utilisé": gestion_couleur(psutil.virtual_memory().percent) + str(psutil.virtual_memory().percent) + " %",
+        "RAM_total": str(round(psutil.virtual_memory().total / (1024 ** 3),2)) + " Go",
+        "RAM_Utilise": str(round(psutil.virtual_memory().used / (1024 **3),2)) + " Go",
+        "RAM_Libre": round(psutil.virtual_memory().free / (1024 **3),2),
+        "Pourcentage_RAM_utilise": gestion_couleur(psutil.virtual_memory().percent) + str(psutil.virtual_memory().percent) + " %",
     }
     return Info_memoire
 
@@ -153,9 +153,9 @@ def collecter_disques():
             usage = psutil.disk_usage(i.mountpoint)
             Info_disques.append({
                 "point_montage": i.device,
-                "total": str(round(usage.total / (1024 ** 3),2)) + " Go",
-                "utilise": str(round(usage.used / (1024 **3),2)) + " Go",
-                "pourcentage d'utilisé": gestion_couleur(usage.percent) + str(usage.percent) + "%",
+                "disque_total": str(round(usage.total / (1024 ** 3),2)) + " Go",
+                "disque_utilise": str(round(usage.used / (1024 **3),2)) + " Go",
+                "pourcentage_disque_utilise": gestion_couleur(usage.percent) + str(usage.percent) + "%",
             })
 
         except PermissionError:
