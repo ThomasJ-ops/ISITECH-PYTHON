@@ -7,7 +7,7 @@ from colorama import Fore, init
 from datetime import datetime
 
 
-from collector import collecter_tout
+#from collector import collecter_tout
 
 donnees = collecter_tout()
 

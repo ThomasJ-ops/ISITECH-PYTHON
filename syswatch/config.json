@@ -11,19 +11,19 @@
   "Info_CPU": {
     "coeurs_physiques": 10,
     "coeurs_logiques": 16,
-    "Pourcentage_CPU_utilise": "\u001b[32m17.4%"
+    "Pourcentage_CPU_utilise": "\u001b[32m12.8%"
   },
   "Info_RAM": {
     "RAM_total": "31.71 Go",
-    "RAM_Utilise": "16.63 Go",
-    "RAM_Libre": 15.09,
-    "Pourcentage_RAM_utilise": "\u001b[33m52.4 %"
+    "RAM_Utilise": "16.6 Go",
+    "RAM_Libre": 15.11,
+    "Pourcentage_RAM_utilise": "\u001b[33m52.3 %"
   },
   "Info_Disque": [
     {
       "point_montage": "C:\\",
       "disque_total": "932.42 Go",
-      "disque_utilise": "464.61 Go",
+      "disque_utilise": "464.75 Go",
       "pourcentage_disque_utilise": "\u001b[33m49.8%"
     },
     {
@@ -33,5 +33,5 @@
       "pourcentage_disque_utilise": "\u001b[32m32.7%"
     }
   ],
-  "TimeStamp": "2025-11-20 09:09:22"
+  "TimeStamp": "2025-11-20 12:18:05"
 }
